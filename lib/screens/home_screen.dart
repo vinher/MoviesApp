@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   
@@ -13,11 +14,11 @@ class HomeScreen extends StatelessWidget {
             icon:Icon( Icons.search_outlined),
             onPressed: (){}), 
         ],
-        
-        
       ),
-      body: Center(
-        child:Text('Home Screen')
+      body: Column(
+        children:[
+          CardSwiper(),
+        ]
       ),
     );
   }
