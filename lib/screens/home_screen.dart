@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:movies/widgets/widgets.dart';
-
+//Declaramos el stateless widget
 class HomeScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //Propiedad appbar la cual nos mostrara el texto de la app o titulo
       appBar:AppBar(
+        //Propiedad titulo, la cual sirve para colocar el titulo que queremos mostrar
         title: Text('Movies In Cinnemas'),
+        //Propiedad para centrar el titulo
         centerTitle:true,
+        //Sirve para colocar los iconos en el appbar así como leading.
         actions: [
+          //Propiedad iconButton Nos sirve para colocar los iconos que queremos mostrar en el appbar
           IconButton(
+            //Icono a mostrar
             icon:Icon( Icons.search_outlined),
+            //Metodo onPressed nos ayuda a realizar una acción cuando presionan el icono
             onPressed: (){}), 
         ],
       ),
-      body: Column(
+      //Widget para hacer scroll para bajar y subir de la aplicación 
+      body: SingleChildScrollView(
+        child:Column(
         children:[
           CardSwiper(),
-        ]
-      ),
+          //Carrusel de peliculas.
+          MovieSlider(),
+          MovieSlider(),
+
+          ]
+        ),
+      )   
     );
   }
 }
