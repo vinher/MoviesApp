@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:movies/providers/movie_provider.dart';
 import 'package:movies/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 //Declaramos el stateless widget
 class HomeScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    
+    
+    final  moviesProvider = Provider.of<MoviesProviders>(context);
+    
+    
+    
     return Scaffold(
       //Propiedad appbar la cual nos mostrara el texto de la app o titulo
       appBar:AppBar(
@@ -26,7 +34,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child:Column(
         children:[
-          CardSwiper(),
+          CardSwiper(movies:moviesProvider.OnDisplayMovies),
           //Carrusel de peliculas.
           MovieSlider(),
           MovieSlider(),
