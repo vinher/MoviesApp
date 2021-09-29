@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:movies/providers/movie_provider.dart';
 import 'package:movies/widgets/widgets.dart';
@@ -34,14 +35,31 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child:Column(
         children:[
+          SizedBox(height:20),
           CardSwiper(movies:moviesProvider.OnDisplayMovies),
           //Carrusel de peliculas.
-          MovieSlider(),
-          MovieSlider(),
+           SizedBox(height:20),
+          MovieSlider(
+            movies:moviesProvider.popularMovies,
+            title:'Populares',
+            onNextPage:()=> moviesProvider.getPopularMovies(),
+
+           ),
+          MovieSlider(
+            movies:moviesProvider.popularMovies,
+            title:'Destacadas',
+            onNextPage:()=> moviesProvider.getPopularMovies(),
+
+           ),
+
 
           ]
+          
         ),
+    
       )   
+    
     );
+    
   }
 }

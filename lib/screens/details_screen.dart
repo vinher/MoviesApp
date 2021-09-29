@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/movie.dart';
 import 'package:movies/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
+    final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
     return Scaffold(
       body:CustomScrollView(
           slivers:[
-            _CustomAppBar(),
+            _CustomAppBar(movie),
             SliverList(
               delegate: SliverChildListDelegate([
-                 _PosterAndTitle(),
-                 _Overview(), 
-                 _Overview(), 
+                 _PosterAndTitle(movie),
+                 _Overview(movie), 
+                 _Overview(movie), 
                  CastingCards()
 
               ]),
             ),
-
-
-
           ]
       )
     );
   }
 }
 class _CustomAppBar extends StatelessWidget {
+
+  final Movie movie;
+
+  const _CustomAppBar(this.movie);
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +47,13 @@ class _CustomAppBar extends StatelessWidget {
             padding:EdgeInsets.only(bottom: 10),
             color:Colors.black12,
             child: Text(
-              'movie.title',
+              movie.title,
               style:TextStyle(fontSize: 16)
             ),
           ),    
         background:FadeInImage(
           placeholder:AssetImage('assets/loading.gif'),
-          image:NetworkImage('https://via.placeholder.com/500x300'),
+          image:NetworkImage(movie.fullBackdropPath),
           fit:BoxFit.cover,
         )
        ),     
@@ -61,9 +63,16 @@ class _CustomAppBar extends StatelessWidget {
 
 class _PosterAndTitle extends StatelessWidget {
   
+  final Movie movie;
+
+
+  const _PosterAndTitle(this.movie);
+
   @override
   Widget build(BuildContext context) {
      final TextTheme textTheme = Theme.of(context).textTheme;
+     final size = MediaQuery.of(context).size;
+
     return Container(
       margin:EdgeInsets.only(top:20),
       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -72,8 +81,8 @@ class _PosterAndTitle extends StatelessWidget {
           ClipRRect(
             borderRadius:BorderRadius.circular(20),
             child:FadeInImage(
-              placeholder:AssetImage('assets/venom.jpg'),
-              image: AssetImage('assets/venom.jpg'),
+              placeholder:AssetImage('assets/loading.gif'),
+              image: NetworkImage(movie.fullPosterImg),
               height:150,
             ),
           ),
@@ -81,13 +90,18 @@ class _PosterAndTitle extends StatelessWidget {
           Column(
             crossAxisAlignment:CrossAxisAlignment.start,
             children:[
-              Text('Movie.title', style:textTheme.headline5, overflow:TextOverflow.ellipsis,maxLines:2),
-              Text('Original.title', style:textTheme.subtitle1, overflow:TextOverflow.ellipsis),
+              ConstrainedBox(constraints:BoxConstraints(maxWidth:size.width - 190),
+              child:Text(movie.title, style:textTheme.headline5, overflow:TextOverflow.ellipsis,maxLines:2)
+              ),
+              
+              
+              
+              Text(movie.originalTitle, style:textTheme.subtitle1, overflow:TextOverflow.ellipsis),
               Row(
                 children:[
                   Icon(Icons.star_outline,size:15, color:Colors.green),
                   SizedBox(width:5),
-                  Text('movie.voteAverage' ,style:textTheme.caption)
+                  Text('${movie.voteAverage}' ,style:textTheme.caption)
                 ],
               )
             
@@ -103,11 +117,14 @@ class _PosterAndTitle extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
+  final Movie movie;
+
+  const _Overview(this.movie);
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 30,vertical:15),
-      child:Text('Aliquip quis reprehenderit deserunt dolor velit proident deserunt quis quis in sunt in sunt. Culpa consequat velit voluptate tempor esse eu cupidatat dolore mollit aliquip do cillum cupidatat. Sit dolor veniam elit laborum id sint cillum ullamco. Elit nostrud culpa incididunt et. Nostrud elit dolore cupidatat aute dolor aliquip nulla Lorem eiusmod nisi. Est aute laborum cupidatat minim excepteur mollit enim do.',
+      child:Text(movie.overview,
       textAlign: TextAlign.justify,
       style:Theme.of(context).textTheme.subtitle1),
       
