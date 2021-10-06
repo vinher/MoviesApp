@@ -16,8 +16,7 @@ class DetailsScreen extends StatelessWidget {
                  _PosterAndTitle(movie),
                  _Overview(movie), 
                  _Overview(movie), 
-                 CastingCards()
-
+                 CastingCards(movie.id)
               ]),
             ),
           ]
@@ -44,11 +43,12 @@ class _CustomAppBar extends StatelessWidget {
           title:Container(
             width:double.infinity,
             alignment: Alignment.bottomCenter,
-            padding:EdgeInsets.only(bottom: 10),
+            padding:EdgeInsets.only(bottom: 10, left:20,right:10),
             color:Colors.black12,
             child: Text(
               movie.title,
-              style:TextStyle(fontSize: 16)
+              style:TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
             ),
           ),    
         background:FadeInImage(
@@ -87,28 +87,23 @@ class _PosterAndTitle extends StatelessWidget {
             ),
           ),
           SizedBox(width:20),
-          Column(
-            crossAxisAlignment:CrossAxisAlignment.start,
-            children:[
-              ConstrainedBox(constraints:BoxConstraints(maxWidth:size.width - 190),
-              child:Text(movie.title, style:textTheme.headline5, overflow:TextOverflow.ellipsis,maxLines:2)
-              ),
-              
-              
-              
-              Text(movie.originalTitle, style:textTheme.subtitle1, overflow:TextOverflow.ellipsis),
-              Row(
-                children:[
-                  Icon(Icons.star_outline,size:15, color:Colors.green),
-                  SizedBox(width:5),
-                  Text('${movie.voteAverage}' ,style:textTheme.caption)
-                ],
-              )
-            
-            
-            ]
-
-
+          ConstrainedBox(
+            constraints:BoxConstraints(maxWidth: size.width - 190),
+            child: Column(
+              crossAxisAlignment:CrossAxisAlignment.start,
+              children:[
+                Text(movie.title, style:textTheme.headline5, overflow:TextOverflow.ellipsis,maxLines:2),
+                
+                Text(movie.originalTitle, style:textTheme.subtitle1, overflow:TextOverflow.ellipsis, maxLines:2),
+                Row(
+                  children:[
+                    Icon(Icons.star_outline,size:15, color:Colors.green),
+                    SizedBox(width:5),
+                    Text('${movie.voteAverage}' ,style:textTheme.caption)
+                  ],
+                )
+              ]
+            ),
           )
         ]
       )   

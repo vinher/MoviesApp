@@ -41,7 +41,7 @@ class Movie {
     }
 
     get fullBackdropPath{
-      if(this.posterPath != null)
+      if(this.backdropPath != null)
         return 'https://image.tmdb.org/t/p/w500${this.backdropPath}';
       return 'https://i.stack.imgur.com/GNhxO.png';
     }
@@ -66,6 +66,8 @@ class Movie {
         voteAverage: json["vote_average"].toDouble(),
         voteCount: json["vote_count"],
     );
+
+  getMovieCast(int movieId) {}
 
 }
 

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:movies/providers/movie_provider.dart';
+import 'package:movies/search/search_delegate.dart';
 import 'package:movies/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 //Declaramos el stateless widget
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             //Icono a mostrar
             icon:Icon( Icons.search_outlined),
             //Metodo onPressed nos ayuda a realizar una acción cuando presionan el icono
-            onPressed: (){}), 
+            onPressed: ()=> showSearch(context: context, delegate: MovieSearchDelegate())), 
         ],
       ),
       //Widget para hacer scroll para bajar y subir de la aplicación 
